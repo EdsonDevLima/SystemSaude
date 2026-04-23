@@ -1,0 +1,6 @@
+@SystemSaude_HostAddress = http://localhost:5262
+
+GET {{SystemSaude_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
