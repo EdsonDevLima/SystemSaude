@@ -103,6 +103,18 @@ function buildIsoDate(dayOfWeek: number, time: string) {
 }
 
 export default function App() {
+  const [tema, setTema] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") {
+      return "light";
+    }
+
+    const savedTheme = window.localStorage.getItem("cliente-consultas-theme");
+    if (savedTheme === "light" || savedTheme === "dark") {
+      return savedTheme;
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
   const [form, setForm] = useState<BookingFormState>(initialForm);
   const [pacientForm, setPacientForm] = useState<PacientFormState>(initialPacientForm);
   const [pacienteAtual, setPacienteAtual] = useState<PacientPortalResponse | null>(null);
@@ -116,6 +128,12 @@ export default function App() {
   const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState("");
   const [sucesso, setSucesso] = useState("");
+  const [etapaAtiva, setEtapaAtiva] = useState(1);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", tema);
+    window.localStorage.setItem("cliente-consultas-theme", tema);
+  }, [tema]);
 
   useEffect(() => {
     async function loadDoctors() {
@@ -194,6 +212,7 @@ export default function App() {
       });
 
       setPacienteAtual(paciente);
+      setEtapaAtiva(2);
       setCarregandoConsultas(true);
       const data = await getConsultasPorPaciente(paciente.id);
       setConsultas(sortConsultas(data));
@@ -225,6 +244,7 @@ export default function App() {
       });
 
       setSucesso("Consulta agendada com sucesso.");
+      setEtapaAtiva(3);
       const data = await getConsultasPorPaciente(pacienteAtual?.id ?? "");
       setConsultas(sortConsultas(data));
 
@@ -256,30 +276,99 @@ export default function App() {
     setErro("");
   }
 
+  function alternarTema() {
+    setTema((current) => (current === "light" ? "dark" : "light"));
+  }
+
   return (
     <main className="page-shell">
       <section className="hero-card">
-        <div>
-          <h1>Portal de consultas do cliente</h1>
+        <div className="hero-copy">
+          <span className="eyebrow">Experiencia digital de atendimento</span>
+          <h1>Seu cuidado organizado em uma interface mais clara e acolhedora.</h1>
           <p>
-            O cliente consulta seus agendamentos, escolhe o medico pelo nome e seleciona
-            um horario disponivel entre segunda e sexta de forma mais simples.
+            Acompanhe seu historico, identifique o paciente e reserve horarios com uma
+            navegacao mais fluida entre medicos, disponibilidade semanal e confirmacao
+            de atendimento.
           </p>
+          <div className="hero-highlights">
+            <div className="highlight-pill">
+              <strong>1</strong>
+              <span>identifique o cliente</span>
+            </div>
+            <div className="highlight-pill">
+              <strong>2</strong>
+              <span>selecione medico e horario</span>
+            </div>
+            <div className="highlight-pill">
+              <strong>3</strong>
+              <span>acompanhe o historico</span>
+            </div>
+          </div>
         </div>
 
-        <div className="api-badge">
-          <span>API alvo</span>
-          <strong>{API_URL}</strong>
+        <div className="hero-side">
+          <button type="button" className="theme-toggle" onClick={alternarTema}>
+            <div className="theme-toggle-copy">
+              <span>{tema === "light" ? "Tema claro" : "Tema escuro"}</span>
+              <strong>{tema === "light" ? "Mudar para escuro" : "Mudar para claro"}</strong>
+            </div>
+            <span className={`theme-switch ${tema === "dark" ? "is-dark" : ""}`} aria-hidden="true">
+              <span className="theme-switch-track" />
+              <span className="theme-switch-thumb">
+                {tema === "light" ? "☀" : "☾"}
+              </span>
+            </span>
+          </button>
+          <div className="hero-note">
+            <span>Fluxo atual</span>
+            <strong>
+              {etapaAtiva === 1 && "Cadastro do cliente"}
+              {etapaAtiva === 2 && "Selecao de medico e horario"}
+              {etapaAtiva === 3 && "Historico atualizado"}
+            </strong>
+          </div>
         </div>
       </section>
 
-      <section className="grid-layout">
-        <form className="panel" onSubmit={identificarPaciente}>
-          <h2>Dados do paciente</h2>
+      <section className="stepper">
+        <button
+          type="button"
+          className={`step-tab ${etapaAtiva === 1 ? "is-active" : ""}`}
+          onClick={() => setEtapaAtiva(1)}
+        >
+          <span>01</span>
+          Dados do cliente
+        </button>
+        <button
+          type="button"
+          className={`step-tab ${etapaAtiva === 2 ? "is-active" : ""}`}
+          onClick={() => pacienteAtual && setEtapaAtiva(2)}
+          disabled={!pacienteAtual}
+        >
+          <span>02</span>
+          Selecionar medico
+        </button>
+        <button
+          type="button"
+          className={`step-tab ${etapaAtiva === 3 ? "is-active" : ""}`}
+          onClick={() => pacienteAtual && setEtapaAtiva(3)}
+          disabled={!pacienteAtual}
+        >
+          <span>03</span>
+          Historico
+        </button>
+      </section>
+
+      {etapaAtiva === 1 && (
+        <form className="panel step-panel" onSubmit={identificarPaciente}>
+          <span className="section-tag">Etapa 1</span>
+          <h2>Dados do cliente</h2>
           <p className="panel-copy">
-            Preencha os dados para cadastrar ou identificar o paciente antes de agendar.
+            Preencha os dados para cadastrar ou identificar o cliente antes de seguir para o agendamento.
           </p>
 
+          <div className="form-grid">
           <label>
             E-mail
             <input
@@ -387,13 +476,18 @@ export default function App() {
               required
             />
           </label>
+          </div>
 
           <button type="submit" disabled={salvandoPaciente}>
             {salvandoPaciente ? "Salvando..." : "Continuar como paciente"}
           </button>
         </form>
+      )}
 
-        <form className="panel" onSubmit={agendarConsulta}>
+      {etapaAtiva === 2 && (
+        <section className="stack-layout">
+        <form className="panel step-panel" onSubmit={agendarConsulta}>
+          <span className="section-tag">Etapa 2</span>
           <h2>Agendar consulta</h2>
           <p className="panel-copy">
             Escolha o medico, toque em um horario livre na grade semanal e confirme.
@@ -464,18 +558,12 @@ export default function App() {
             {salvando ? "Agendando..." : "Agendar consulta"}
           </button>
         </form>
-      </section>
-
-      {(erro || sucesso) && (
-        <section className="feedback-stack">
-          {erro && <div className="feedback error">{erro}</div>}
-          {sucesso && <div className="feedback success">{sucesso}</div>}
-        </section>
-      )}
+      
 
       <section className="panel availability-panel">
         <div className="list-header">
           <div>
+            <span className="section-tag">Agenda semanal</span>
             <h2>Horarios disponiveis</h2>
             <p className="panel-copy">
               Grade semanal de segunda a sexta. Clique em um horario livre para preencher o agendamento.
@@ -530,10 +618,21 @@ export default function App() {
           </div>
         )}
       </section>
+      </section>
+      )}
 
+      {(erro || sucesso) && (
+        <section className="feedback-stack">
+          {erro && <div className="feedback error">{erro}</div>}
+          {sucesso && <div className="feedback success">{sucesso}</div>}
+        </section>
+      )}
+
+      {etapaAtiva === 3 && (
       <section className="panel consult-list">
         <div className="list-header">
           <div>
+            <span className="section-tag">Historico</span>
             <h2>Historico de consultas</h2>
             <p className="panel-copy">
               Resultado filtrado por paciente, com medico, horario e status.
@@ -574,6 +673,7 @@ export default function App() {
           )}
         </div>
       </section>
+      )}
     </main>
   );
 }

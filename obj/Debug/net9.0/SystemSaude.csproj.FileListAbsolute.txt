@@ -318,3 +318,6 @@
 /home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/obj/Debug/net9.0/SystemSaude.pdb
 /home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/obj/Debug/net9.0/SystemSaude.genruntimeconfig.cache
 /home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/obj/Debug/net9.0/ref/SystemSaude.dll
+/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/bin/Debug/net9.0/Frontend/cliente-consultas-mf/package-lock.json
+/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/bin/Debug/net9.0/Frontend/cliente-consultas-mf/package.json
+/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/bin/Debug/net9.0/Frontend/cliente-consultas-mf/tsconfig.json
