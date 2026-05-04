@@ -10,6 +10,24 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("connectionDefault")));
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureRepositories();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ClienteConsultasMf", policy =>
+    {
+        policy
+            .SetIsOriginAllowed(origin =>
+            {
+                if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri))
+                {
+                    return false;
+                }
+
+                return uri.Host is "localhost" or "127.0.0.1";
+            })
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -30,6 +48,8 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+await AppDbInitializer.InitializeAsync(app.Services);
+
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
@@ -37,6 +57,7 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = "swagger";
 });
 
+app.UseCors("ClienteConsultasMf");
 app.UseAuthentication();
 app.UseAuthorization();
 

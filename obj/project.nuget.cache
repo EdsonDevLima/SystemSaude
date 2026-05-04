@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q7VT3GR+WL8=",
+  "dgSpecHash": "xB6VdMbOHXU=",
   "success": true,
-  "projectFilePath": "/home/aaa/Área de trabalho/Estudos/SystemSaude/SystemSaude.csproj",
+  "projectFilePath": "/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/SystemSaude.csproj",
   "expectedPackageFiles": [
     "/home/aaa/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/home/aaa/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",

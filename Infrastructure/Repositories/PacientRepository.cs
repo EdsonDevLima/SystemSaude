@@ -18,4 +18,14 @@ public class PacientRepository : Repository<Pacient>, IPacientRepository
             .Include(pacient => pacient.Consults)
             .FirstOrDefaultAsync(pacient => pacient.Id == id, cancellationToken);
     }
+
+    public async Task<Pacient?> GetByCpfOrEmailAsync(string cpf, string email, CancellationToken cancellationToken = default)
+    {
+        return await Context.Pacient
+            .Include(pacient => pacient.Address)
+            .Include(pacient => pacient.Consults)
+            .FirstOrDefaultAsync(
+                pacient => pacient.Cpf == cpf || pacient.Email == email,
+                cancellationToken);
+    }
 }

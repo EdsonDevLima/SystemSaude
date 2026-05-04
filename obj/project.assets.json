@@ -5196,11 +5196,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/aaa/Área de trabalho/Estudos/SystemSaude/SystemSaude.csproj",
+      "projectUniqueName": "/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/SystemSaude.csproj",
       "projectName": "SystemSaude",
-      "projectPath": "/home/aaa/Área de trabalho/Estudos/SystemSaude/SystemSaude.csproj",
+      "projectPath": "/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/SystemSaude.csproj",
       "packagesPath": "/home/aaa/.nuget/packages/",
-      "outputPath": "/home/aaa/Área de trabalho/Estudos/SystemSaude/obj/",
+      "outputPath": "/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/aaa/.nuget/NuGet/NuGet.Config"
