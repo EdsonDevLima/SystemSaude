@@ -1,5 +1,12 @@
-bin/
-obj/
-.git/
-.vs/
-.vscode/
+.git
+.agents
+.codex
+
+bin
+obj
+
+Frontend/cliente-consultas-mf/node_modules
+Frontend/cliente-consultas-mf/dist
+
+.vscode
+.vs

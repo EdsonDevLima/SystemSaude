@@ -10,7 +10,16 @@ public static class AppDbInitializer
         await using var scope = serviceProvider.CreateAsyncScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-        await context.Database.EnsureCreatedAsync();
+        try
+        {
+            await context.Database.EnsureCreatedAsync();
+        }
+        catch (Exception ex) when (ex is DbUpdateException || ex is InvalidOperationException || ex.InnerException is not null)
+        {
+            throw new InvalidOperationException(
+                "Nao foi possivel inicializar o banco de dados do SystemSaude. Verifique se o SQL Server esta em execucao e se a connection string aponta para a instancia correta.",
+                ex);
+        }
 
         if (!await context.Doctor.AnyAsync())
         {

@@ -1,0 +1,10 @@
+bin/
+obj/
+
+Frontend/cliente-consultas-mf/node_modules/
+Frontend/cliente-consultas-mf/dist/
+
+.vs/
+.vscode/
+*.user
+*.suo

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xB6VdMbOHXU=",
+  "dgSpecHash": "5Z1HLuxzZBs=",
   "success": true,
   "projectFilePath": "/home/aaa/Área de trabalho/Estudos/backup2/SystemSaude/SystemSaude.csproj",
   "expectedPackageFiles": [
@@ -26,7 +26,7 @@
     "/home/aaa/.nuget/packages/microsoft.entityframeworkcore.design/9.0.0/microsoft.entityframeworkcore.design.9.0.0.nupkg.sha512",
     "/home/aaa/.nuget/packages/microsoft.entityframeworkcore.relational/9.0.0/microsoft.entityframeworkcore.relational.9.0.0.nupkg.sha512",
     "/home/aaa/.nuget/packages/microsoft.entityframeworkcore.sqlserver/9.0.0/microsoft.entityframeworkcore.sqlserver.9.0.0.nupkg.sha512",
-    "/home/aaa/.nuget/packages/microsoft.entityframeworkcore.tools/10.0.7/microsoft.entityframeworkcore.tools.10.0.7.nupkg.sha512",
+    "/home/aaa/.nuget/packages/microsoft.entityframeworkcore.tools/9.0.0/microsoft.entityframeworkcore.tools.9.0.0.nupkg.sha512",
     "/home/aaa/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/home/aaa/.nuget/packages/microsoft.extensions.caching.abstractions/9.0.0/microsoft.extensions.caching.abstractions.9.0.0.nupkg.sha512",
     "/home/aaa/.nuget/packages/microsoft.extensions.caching.memory/9.0.0/microsoft.extensions.caching.memory.9.0.0.nupkg.sha512",

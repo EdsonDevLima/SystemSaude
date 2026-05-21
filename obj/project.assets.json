@@ -604,16 +604,10 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/10.0.7": {
+      "Microsoft.EntityFrameworkCore.Tools/9.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/_._": {}
-        },
-        "runtime": {
-          "lib/net8.0/_._": {}
+          "Microsoft.EntityFrameworkCore.Design": "9.0.0"
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
@@ -3004,18 +2998,17 @@
         "microsoft.entityframeworkcore.sqlserver.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Tools/10.0.7": {
-      "sha512": "Ui7+Y+E2KwwQvRlbOclMP8HAGXrQFQcOu3NLpKlYdmd5pbhlueyLhnW3SBv1WuXALKESGHR3lMqeANNnl/02Bw==",
+    "Microsoft.EntityFrameworkCore.Tools/9.0.0": {
+      "sha512": "qjw+3/CaWiWnyVblvKHY11rQKH5eHQDSbtxjgxVhxGJrOpmjZ3JxtD0pjwkr4y/ELubsXr6xDfBcRJSkX/9hWQ==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.tools/10.0.7",
+      "path": "microsoft.entityframeworkcore.tools/9.0.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "docs/PACKAGE.md",
-        "lib/net8.0/_._",
-        "microsoft.entityframeworkcore.tools.10.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.tools.9.0.0.nupkg.sha512",
         "microsoft.entityframeworkcore.tools.nuspec",
         "tools/EntityFrameworkCore.PS2.psd1",
         "tools/EntityFrameworkCore.PS2.psm1",
@@ -3026,8 +3019,8 @@
         "tools/net472/any/ef.exe",
         "tools/net472/win-arm64/ef.exe",
         "tools/net472/win-x86/ef.exe",
-        "tools/net8.0/any/ef.dll",
-        "tools/net8.0/any/ef.runtimeconfig.json"
+        "tools/netcoreapp2.0/any/ef.dll",
+        "tools/netcoreapp2.0/any/ef.runtimeconfig.json"
       ]
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
@@ -5186,7 +5179,7 @@
       "Microsoft.EntityFrameworkCore >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.0",
-      "Microsoft.EntityFrameworkCore.Tools >= 10.0.7",
+      "Microsoft.EntityFrameworkCore.Tools >= 9.0.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -5255,7 +5248,7 @@
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[10.0.7, )"
+            "version": "[9.0.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
