@@ -285,48 +285,25 @@ export default function App() {
       <section className="hero-card">
         <div className="hero-copy">
           <span className="eyebrow">Experiencia digital de atendimento</span>
-          <h1>Seu cuidado organizado em uma interface mais clara e acolhedora.</h1>
+          <h1>Um portal de saude mais moderno, leve e confiavel para cada etapa do cuidado.</h1>
           <p>
-            Acompanhe seu historico, identifique o paciente e reserve horarios com uma
-            navegacao mais fluida entre medicos, disponibilidade semanal e confirmacao
-            de atendimento.
+            Acompanhe o historico, identifique o paciente e reserve horarios com uma
+            navegacao mais elegante, inspirada no universo visual dos grandes planos de
+            saude e desenhada para transmitir clareza, bem-estar e organizacao.
           </p>
           <div className="hero-highlights">
             <div className="highlight-pill">
-              <strong>1</strong>
-              <span>identifique o cliente</span>
+              <strong>Cadastro inteligente</strong>
+              <span>dados essenciais com leitura rapida</span>
             </div>
             <div className="highlight-pill">
-              <strong>2</strong>
-              <span>selecione medico e horario</span>
+              <strong>Agenda visual</strong>
+              <span>selecione medico e horario com mais clareza</span>
             </div>
             <div className="highlight-pill">
-              <strong>3</strong>
-              <span>acompanhe o historico</span>
+              <strong>Historico centralizado</strong>
+              <span>consultas e status em um so lugar</span>
             </div>
-          </div>
-        </div>
-
-        <div className="hero-side">
-          <button type="button" className="theme-toggle" onClick={alternarTema}>
-            <div className="theme-toggle-copy">
-              <span>{tema === "light" ? "Tema claro" : "Tema escuro"}</span>
-              <strong>{tema === "light" ? "Mudar para escuro" : "Mudar para claro"}</strong>
-            </div>
-            <span className={`theme-switch ${tema === "dark" ? "is-dark" : ""}`} aria-hidden="true">
-              <span className="theme-switch-track" />
-              <span className="theme-switch-thumb">
-                {tema === "light" ? "☀" : "☾"}
-              </span>
-            </span>
-          </button>
-          <div className="hero-note">
-            <span>Fluxo atual</span>
-            <strong>
-              {etapaAtiva === 1 && "Cadastro do cliente"}
-              {etapaAtiva === 2 && "Selecao de medico e horario"}
-              {etapaAtiva === 3 && "Historico atualizado"}
-            </strong>
           </div>
         </div>
       </section>
