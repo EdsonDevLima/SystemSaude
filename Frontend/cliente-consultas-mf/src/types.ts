@@ -70,3 +70,21 @@ export interface PacientPortalResponse {
   phone: string;
   address: AddressPayload;
 }
+export interface BookingFormState {
+  doctorId: string;
+  startAt: string;
+  endAt: string;
+  notes: string;
+}
+
+export interface PacientFormState {
+  email: string;
+  cpf: string;
+  document: string;
+  phone: string;
+  street: string;
+  neighborhood: string;
+  state: string;
+  country: string;
+  complement: string;
+}

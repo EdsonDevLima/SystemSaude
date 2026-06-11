@@ -8,31 +8,14 @@ import {
   registrarPaciente
 } from "./services/consultasApi";
 import type {
+  BookingFormState,
   ConsultResponse,
   DayAvailability,
   DoctorAvailability,
   DoctorOption,
+  PacientFormState,
   PacientPortalResponse
 } from "./types";
-
-interface BookingFormState {
-  doctorId: string;
-  startAt: string;
-  endAt: string;
-  notes: string;
-}
-
-interface PacientFormState {
-  email: string;
-  cpf: string;
-  document: string;
-  phone: string;
-  street: string;
-  neighborhood: string;
-  state: string;
-  country: string;
-  complement: string;
-}
 
 const initialForm: BookingFormState = {
   doctorId: "",
@@ -282,32 +265,6 @@ export default function App() {
 
   return (
     <main className="page-shell">
-      <section className="hero-card">
-        <div className="hero-copy">
-          <span className="eyebrow">Experiencia digital de atendimento</span>
-          <h1>Um portal de saude mais moderno, leve e confiavel para cada etapa do cuidado.</h1>
-          <p>
-            Acompanhe o historico, identifique o paciente e reserve horarios com uma
-            navegacao mais elegante, inspirada no universo visual dos grandes planos de
-            saude e desenhada para transmitir clareza, bem-estar e organizacao.
-          </p>
-          <div className="hero-highlights">
-            <div className="highlight-pill">
-              <strong>Cadastro inteligente</strong>
-              <span>dados essenciais com leitura rapida</span>
-            </div>
-            <div className="highlight-pill">
-              <strong>Agenda visual</strong>
-              <span>selecione medico e horario com mais clareza</span>
-            </div>
-            <div className="highlight-pill">
-              <strong>Historico centralizado</strong>
-              <span>consultas e status em um so lugar</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="stepper">
         <button
           type="button"

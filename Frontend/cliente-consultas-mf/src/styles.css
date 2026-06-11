@@ -1,62 +1,47 @@
 :root {
   font-family: "Segoe UI", "Trebuchet MS", sans-serif;
-  color: #0d3f34;
+
   background:
-    radial-gradient(circle at top left, rgba(0, 168, 89, 0.2), transparent 28%),
-    radial-gradient(circle at top right, rgba(114, 206, 124, 0.22), transparent 24%),
-    linear-gradient(145deg, #edf8f1 0%, #dff3e7 42%, #f5fbf6 100%);
-  line-height: 1.5;
-  font-weight: 400;
+    radial-gradient(circle at top right,
+      rgba(230, 126, 34, 0.08),
+      transparent 28%),
+    radial-gradient(circle at bottom left,
+      rgba(255, 153, 51, 0.05),
+      transparent 35%),
+    linear-gradient(
+      135deg,
+      #ebe8e4 0%,
+      #e4e1dd 50%,
+      #ddd9d4 100%
+    );
+
   color-scheme: light;
-  --text-primary: #123b33;
-  --text-secondary: #45685d;
-  --text-muted: #69857d;
-  --surface-base: rgba(255, 255, 255, 0.84);
-  --surface-soft: rgba(244, 251, 246, 0.9);
-  --surface-strong: rgba(235, 247, 239, 0.96);
-  --border-color: rgba(18, 95, 71, 0.11);
-  --border-soft: rgba(0, 168, 89, 0.18);
-  --shadow-color: rgba(13, 63, 52, 0.12);
-  --accent: #00995d;
-  --accent-strong: #006b44;
-  --accent-soft: rgba(0, 153, 93, 0.13);
-  --accent-glow: rgba(114, 206, 124, 0.24);
-  --input-bg: rgba(251, 254, 252, 0.96);
-  --input-border: #c5dfd0;
+
+  --text-primary: #2d3238;
+  --text-secondary: #596169;
+  --text-muted: #7e878f;
+
+  --surface-base: rgba(248, 246, 243, 0.88);
+  --surface-soft: rgba(243, 240, 236, 0.94);
+  --surface-strong: rgba(238, 235, 231, 0.98);
+
+  --border-color: rgba(80, 80, 80, 0.1);
+  --border-soft: rgba(230, 126, 34, 0.18);
+
+  --shadow-color: rgba(0, 0, 0, 0.08);
+
+  --accent: #d97706;
+  --accent-strong: #b45309;
+  --accent-soft: rgba(217, 119, 6, 0.12);
+  --accent-glow: rgba(217, 119, 6, 0.16);
+
+  --input-bg: #f4f1ee;
+  --input-border: #cfc8c1;
+
   --button-text: #ffffff;
-  --status-danger: #8d4343;
-  --status-danger-bg: #f6e7e7;
-}
 
-:root[data-theme="dark"] {
-  color: #edf8f1;
-  background:
-    radial-gradient(circle at top left, rgba(0, 168, 89, 0.22), transparent 24%),
-    radial-gradient(circle at right center, rgba(114, 206, 124, 0.18), transparent 20%),
-    linear-gradient(145deg, #071813 0%, #0a231d 45%, #103229 100%);
-  color-scheme: dark;
-  --text-primary: #ecf8f1;
-  --text-secondary: #bddad0;
-  --text-muted: #99beb1;
-  --surface-base: rgba(7, 25, 20, 0.84);
-  --surface-soft: rgba(12, 37, 31, 0.92);
-  --surface-strong: rgba(15, 46, 38, 0.96);
-  --border-color: rgba(108, 199, 145, 0.16);
-  --border-soft: rgba(114, 206, 124, 0.2);
-  --shadow-color: rgba(0, 0, 0, 0.28);
-  --accent: #2ccd78;
-  --accent-strong: #11965a;
-  --accent-soft: rgba(44, 205, 120, 0.14);
-  --accent-glow: rgba(114, 206, 124, 0.2);
-  --input-bg: rgba(9, 29, 24, 0.96);
-  --input-border: #255a47;
-  --button-text: #effaf4;
-  --status-danger: #f1b0b0;
-  --status-danger-bg: rgba(103, 46, 46, 0.34);
-}
-
-* {
-  box-sizing: border-box;
+  --status-danger: #b42318;
+  --status-danger-bg: #fde8e8;
 }
 
 body {
@@ -671,4 +656,10 @@ button:disabled {
   .panel {
     padding: 22px;
   }
+}
+.Header{
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  margin: 0px;
 }
