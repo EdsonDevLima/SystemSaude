@@ -141,6 +141,8 @@ export default function App() {
       }
 
       setCarregandoDisponibilidade(true);
+      // Limpa horário selecionado ao trocar de médico
+      setForm((current) => ({ ...current, startAt: "", endAt: "" }));
 
       try {
         const data = await getDisponibilidadeMedico(form.doctorId);
@@ -420,139 +422,118 @@ export default function App() {
 
       {etapaAtiva === 2 && (
         <section className="stack-layout">
-        <form className="panel step-panel" onSubmit={agendarConsulta}>
-          <span className="section-tag">Etapa 2</span>
-          <h2>Agendar consulta</h2>
-          <p className="panel-copy">
-            Escolha o medico, toque em um horario livre na grade semanal e confirme.
-          </p>
-
-          {pacienteAtual && (
-            <div className="patient-summary">
-              <strong>{pacienteAtual.email}</strong>
-              <span>CPF: {pacienteAtual.cpf}</span>
-              <span>Telefone: {pacienteAtual.phone}</span>
-            </div>
-          )}
-
-          <label>
-            Medico
-            <select
-              name="doctorId"
-              value={form.doctorId}
-              onChange={handleChange}
-              required
-              disabled={carregandoMedicos || !pacienteAtual}
-            >
-              <option value="">
-                {carregandoMedicos ? "Carregando medicos..." : "Selecione um medico"}
-              </option>
-              {medicos.map((medico) => (
-                <option key={medico.id} value={medico.id}>
-                  {medico.name} - {medico.speciality}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label>
-            Inicio da consulta
-            <input
-              name="startAt"
-              type="datetime-local"
-              value={form.startAt}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Fim da consulta
-            <input
-              name="endAt"
-              type="datetime-local"
-              value={form.endAt}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Observacoes
-            <textarea
-              name="notes"
-              rows={4}
-              placeholder="Motivo da consulta, sintomas ou pedido especial"
-              value={form.notes}
-              onChange={handleChange}
-            />
-          </label>
-
-          <button type="submit" disabled={salvando || !form.doctorId || !pacienteAtual}>
-            {salvando ? "Agendando..." : "Agendar consulta"}
-          </button>
-        </form>
-      
-
-      <section className="panel availability-panel">
-        <div className="list-header">
-          <div>
-            <span className="section-tag">Agenda semanal</span>
-            <h2>Horarios disponiveis</h2>
+          <form className="panel step-panel" onSubmit={agendarConsulta}>
+            <span className="section-tag">Etapa 2</span>
+            <h2>Agendar consulta</h2>
             <p className="panel-copy">
-              Grade semanal de segunda a sexta. Clique em um horario livre para preencher o agendamento.
+              Escolha o medico, toque em um horario livre na grade semanal e confirme.
             </p>
-          </div>
-          {disponibilidade && (
-            <span className="counter">
-              {disponibilidade.doctorName} - {disponibilidade.speciality}
-            </span>
-          )}
-        </div>
 
-        {!pacienteAtual && (
-          <div className="empty-state">Cadastre ou identifique o paciente para liberar os horarios.</div>
-        )}
+            {pacienteAtual && (
+              <div className="patient-summary">
+                <strong>{pacienteAtual.email}</strong>
+                <span>CPF: {pacienteAtual.cpf}</span>
+                <span>Telefone: {pacienteAtual.phone}</span>
+              </div>
+            )}
 
-        {pacienteAtual && !form.doctorId && (
-          <div className="empty-state">Selecione um medico para visualizar a disponibilidade.</div>
-        )}
+            <label>
+              Medico
+              <select
+                name="doctorId"
+                value={form.doctorId}
+                onChange={handleChange}
+                required
+                disabled={carregandoMedicos || !pacienteAtual}
+              >
+                <option value="">
+                  {carregandoMedicos ? "Carregando medicos..." : "Selecione um medico"}
+                </option>
+                {medicos.map((medico) => (
+                  <option key={medico.id} value={medico.id}>
+                    {medico.name} - {medico.speciality}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-        {pacienteAtual && form.doctorId && carregandoDisponibilidade && (
-          <div className="empty-state">Carregando horarios do medico...</div>
-        )}
-
-        {pacienteAtual && disponibilidade && !carregandoDisponibilidade && (
-          <div className="availability-grid">
-            {disponibilidade.days.map((day) => (
-              <article className="day-column" key={day.dayOfWeek}>
-                <h3>{day.dayLabel}</h3>
-                {day.slots.length === 0 && (
-                  <div className="slot-empty">Sem agenda configurada</div>
+            {/* Grade de disponibilidade logo abaixo do select de médico */}
+            {form.doctorId && (
+              <div className="availability-inline">
+                {carregandoDisponibilidade && (
+                  <div className="empty-state">Carregando horarios do medico...</div>
                 )}
-                {day.slots.map((slot) => {
-                  const isSelected =
-                    form.startAt.endsWith(slot.startTime) && form.endAt.endsWith(slot.endTime);
 
-                  return (
-                    <button
-                      key={`${day.dayOfWeek}-${slot.startTime}`}
-                      type="button"
-                      className={`slot-button ${slot.available ? "is-free" : "is-busy"} ${isSelected ? "is-selected" : ""}`}
-                      onClick={() => selecionarHorario(day, slot.startTime, slot.endTime)}
-                      disabled={!slot.available}
-                    >
-                      <span>{slot.startTime}</span>
-                      <small>{slot.available ? "Disponivel" : "Ocupado"}</small>
-                    </button>
-                  );
-                })}
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
-      </section>
+                {!carregandoDisponibilidade && disponibilidade && (
+                  <>
+                    <div className="availability-inline-header">
+                      <span className="section-tag">Agenda semanal</span>
+                      <p className="panel-copy">
+                        Clique em um horario <strong>disponivel</strong> para preencher o agendamento automaticamente.
+                        Horarios em vermelho estao ocupados.
+                      </p>
+                    </div>
+
+                    <div className="availability-grid">
+                      {disponibilidade.days.map((day) => (
+                        <article className="day-column" key={day.dayOfWeek}>
+                          <h3>{day.dayLabel}</h3>
+
+                          {day.slots.length === 0 && (
+                            <div className="slot-empty">Sem agenda configurada</div>
+                          )}
+
+                          {day.slots.map((slot) => {
+                            const slotStart = buildIsoDate(day.dayOfWeek, slot.startTime);
+                            const slotEnd = buildIsoDate(day.dayOfWeek, slot.endTime);
+                            const isSelected =
+                              form.startAt === slotStart &&
+                              form.endAt === slotEnd;
+
+                            return (
+                              <button
+                                key={`${day.dayOfWeek}-${slot.startTime}`}
+                                type="button"
+                                className={`slot-button ${slot.available ? "is-free" : "is-busy"} ${isSelected ? "is-selected" : ""}`}
+                                onClick={() =>
+                                  slot.available && selecionarHorario(day, slot.startTime, slot.endTime)
+                                }
+                                disabled={!slot.available}
+                                title={slot.available ? "Clique para selecionar" : "Vaga ocupada"}
+                              >
+                                <span>{slot.startTime}</span>
+                                {slot.available ? (
+                                  <small className="slot-label-free">Disponivel</small>
+                                ) : (
+                                  <small className="slot-label-busy">Vaga ocupada</small>
+                                )}
+                              </button>
+                            );
+                          })}
+                        </article>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            <label>
+              Observacoes
+              <textarea
+                name="notes"
+                rows={4}
+                placeholder="Motivo da consulta, sintomas ou pedido especial"
+                value={form.notes}
+                onChange={handleChange}
+              />
+            </label>
+
+            <button type="submit" disabled={salvando || !form.doctorId || !pacienteAtual || !form.startAt}>
+              {salvando ? "Agendando..." : "Agendar consulta"}
+            </button>
+          </form>
+        </section>
       )}
 
       {(erro || sucesso) && (
@@ -563,50 +544,50 @@ export default function App() {
       )}
 
       {etapaAtiva === 3 && (
-      <section className="panel consult-list">
-        <div className="list-header">
-          <div>
-            <span className="section-tag">Historico</span>
-            <h2>Historico de consultas</h2>
-            <p className="panel-copy">
-              Resultado filtrado por paciente, com medico, horario e status.
-            </p>
-          </div>
-          <span className="counter">{consultas.length} registros</span>
-        </div>
-
-        <div className="cards">
-          {consultas.length === 0 ? (
-            <div className="empty-state">
-              Nenhuma consulta carregada ainda. Faça uma busca para visualizar os dados.
+        <section className="panel consult-list">
+          <div className="list-header">
+            <div>
+              <span className="section-tag">Historico</span>
+              <h2>Historico de consultas</h2>
+              <p className="panel-copy">
+                Resultado filtrado por paciente, com medico, horario e status.
+              </p>
             </div>
-          ) : (
-            consultas.map((consulta) => (
-              <article className="consult-card" key={consulta.id}>
-                <div className="consult-top">
-                  <strong>{consulta.doctorName || "Medico nao informado"}</strong>
-                  <span className={`status-chip status-${consulta.status}`}>
-                    {statusLabel(consulta.status)}
-                  </span>
-                </div>
+            <span className="counter">{consultas.length} registros</span>
+          </div>
 
-                <p>
-                  <span>Paciente:</span> {consulta.pacientEmail || consulta.pacientId}
-                </p>
-                <p>
-                  <span>Inicio:</span> {formatDateTime(consulta.startAt)}
-                </p>
-                <p>
-                  <span>Fim:</span> {formatDateTime(consulta.endAt)}
-                </p>
-                <p>
-                  <span>Observacoes:</span> {consulta.notes || "Sem observacoes"}
-                </p>
-              </article>
-            ))
-          )}
-        </div>
-      </section>
+          <div className="cards">
+            {consultas.length === 0 ? (
+              <div className="empty-state">
+                Nenhuma consulta carregada ainda. Faca uma busca para visualizar os dados.
+              </div>
+            ) : (
+              consultas.map((consulta) => (
+                <article className="consult-card" key={consulta.id}>
+                  <div className="consult-top">
+                    <strong>{consulta.doctorName || "Medico nao informado"}</strong>
+                    <span className={`status-chip status-${consulta.status}`}>
+                      {statusLabel(consulta.status)}
+                    </span>
+                  </div>
+
+                  <p>
+                    <span>Paciente:</span> {consulta.pacientEmail || consulta.pacientId}
+                  </p>
+                  <p>
+                    <span>Inicio:</span> {formatDateTime(consulta.startAt)}
+                  </p>
+                  <p>
+                    <span>Fim:</span> {formatDateTime(consulta.endAt)}
+                  </p>
+                  <p>
+                    <span>Observacoes:</span> {consulta.notes || "Sem observacoes"}
+                  </p>
+                </article>
+              ))
+            )}
+          </div>
+        </section>
       )}
     </main>
   );
